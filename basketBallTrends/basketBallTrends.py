@@ -28,7 +28,8 @@ import matplotlib.pyplot as plt
 
 # Import numpy
 import numpy as np
-
+import warnings
+warnings.filterwarnings("ignore")
 # Seasons
 Seasons = ["2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014"]
 Sdict = {"2005": 0, "2006": 1, "2007": 2, "2008": 3, "2009": 4, "2010": 5, "2011": 6, "2012": 7, "2013": 8, "2014": 9}
@@ -118,6 +119,34 @@ FieldGoalAttempts = np.array(
     [KobeBryant_FGA, JoeJohnson_FGA, LeBronJames_FGA, CarmeloAnthony_FGA, DwightHoward_FGA, ChrisBosh_FGA,
      ChrisPaul_FGA, KevinDurant_FGA, DerrickRose_FGA, DwayneWade_FGA])
 
+# Free Throw Attempts
+KobeBryant_FTA = [819, 768, 742, 564, 541, 583, 451, 626, 21, 241]
+JoeJohnson_FTA = [330, 314, 379, 362, 269, 243, 186, 161, 195, 176]
+LeBronJames_FTA = [814, 701, 771, 762, 773, 663, 502, 535, 585, 528]
+CarmeloAnthony_FTA = [709, 568, 590, 468, 612, 605, 367, 512, 541, 237]
+DwightHoward_FTA = [598, 666, 897, 849, 816, 916, 572, 721, 638, 271]
+ChrisBosh_FTA = [581, 590, 559, 617, 590, 471, 279, 302, 272, 232]
+ChrisPaul_FTA = [465, 357, 390, 524, 190, 384, 302, 323, 345, 321]
+KevinDurant_FTA = [256, 256, 448, 524, 840, 675, 501, 750, 805, 171]
+DerrickRose_FTA = [205, 205, 205, 250, 338, 555, 239, 0, 32, 187]
+DwayneWade_FTA = [803, 535, 467, 771, 702, 652, 297, 425, 258, 370]
+FreeThrowAttempts = np.array([KobeBryant_FTA, JoeJohnson_FTA, LeBronJames_FTA, CarmeloAnthony_FTA, DwightHoward_FTA,
+                            ChrisBosh_FTA, ChrisPaul_FTA, KevinDurant_FTA, DerrickRose_FTA, DwayneWade_FTA])
+
+#Free Throws
+KobeBryant_FT = [696, 667, 623, 483,439,483,381,525,18,196]
+JoeJohnson_FT = [261,235,316,299,220,195,158,132,159,141]
+LeBronJames_FT = [601,489,549,594,593,503,387,403,439,375]
+CarmeloAnthony_FT = [573,459,464,371,508,507,295,425,459,189]
+DwightHoward_FT = [356,390,529,504,483,546,281,355,349,143]
+ChrisBosh_FT = [474,463,472,504,470,384,229,241,223,179]
+ChrisPaul_FT = [394,292,332,455,161,337,260,286,295,289]
+KevinDurant_FT = [209,209,391,452,756,594,431,679,703,146]
+DerrickRose_FT = [146,146,146,197,259,476,194,0,27,152]
+DwayneWade_FT = [629,432,354,590,534,494,235,308,189,284]
+#Matrix
+FreeThrows=np.array([KobeBryant_FT,JoeJohnson_FT,LeBronJames_FT,CarmeloAnthony_FT,
+                     DwightHoward_FT,ChrisBosh_FT,ChrisPaul_FT,KevinDurant_FT,DerrickRose_FT,DwayneWade_FT])
 # Points
 KobeBryant_PTS = [2832, 2430, 2323, 2201, 1970, 2078, 1616, 2133, 83, 782]
 JoeJohnson_PTS = [1653, 1426, 1779, 1688, 1619, 1312, 1129, 1170, 1245, 1154]
@@ -133,34 +162,29 @@ DwayneWade_PTS = [2040, 1397, 1254, 2386, 2045, 1941, 1082, 1463, 1028, 1331]
 Points = np.array([KobeBryant_PTS, JoeJohnson_PTS, LeBronJames_PTS, CarmeloAnthony_PTS, DwightHoward_PTS, ChrisBosh_PTS,
                    ChrisPaul_PTS, KevinDurant_PTS, DerrickRose_PTS, DwayneWade_PTS])
 
-#print(Points)
 
 
-'''plt.plot(Salary[0], c='Black', ls='--', marker='s', ms=7, label=Players[0])
-plt.plot(Salary[1], c='red', ls='--', marker='o', ms=7, label=Players[1])
-plt.plot(Salary[2], c='Green', ls='--', marker='^', ms=7, label=Players[2])
-plt.plot(Salary[3], c='Blue', ls='--', marker='D', ms=7, label=Players[3])
-plt.plot(Salary[4], c='Magenta', ls='--', marker='s', ms=7, label=Players[4])
-plt.plot(Salary[5], c='Black', ls='--', marker='o', ms=7, label=Players[5])
-plt.plot(Salary[6], c='Red', ls='--', marker='^', ms=7, label=Players[6])
-plt.plot(Salary[7], c='Green', ls='--', marker='D', ms=7, label=Players[7])
-plt.plot(Salary[8], c='Blue', ls='--', marker='s', ms=7, label=Players[8])
-plt.plot(Salary[9], c='Magenta', ls='--', marker='o', ms=7, label=Players[9])
-plt.legend(loc='upper left', bbox_to_anchor=(1, 1))
-# replaces the first argument(range(0,10)) with the second argument(seasons)
-#  on the x axis
-'''
-
-
-def myPlot(playerList):
+def myPlot(data, playerList= Players):
     Col = {"KobeBryant": "Black", "JoeJohnson": "red", "LeBronJames": "Green", "CarmeloAnthony": "Blue", "DwightHoward": "Magenta", "ChrisBosh": "Black",
-         "ChrisPaul": "Red", "KevinDurant": "Green", "DerrickRose": "Blue", "DwayneWade": "Magenta"}
+          "ChrisPaul": "Red", "KevinDurant": "Green", "DerrickRose": "Blue", "DwayneWade": "Magenta"}
+    MStyles = {"KobeBryant": 's', "JoeJohnson": 'o', "LeBronJames": "^", "CarmeloAnthony": "D", "DwightHoward": 's', "ChrisBosh": "o",
+          "ChrisPaul": "^", "KevinDurant": "D", "DerrickRose": "s", "DwayneWade": "o"}
     for name in playerList:
-        plt.plot(Games[Pdict[name]], c=Col[name], ls='--', marker='s', ms=7, label=name)
+        plt.plot(data[Pdict[name]], c=Col[name], ls='--', marker=MStyles[name], ms=7, label=name)
 
     plt.legend(loc='upper left', bbox_to_anchor=(1, 1))
     plt.xticks(list(range(0, 10)), Seasons, rotation='vertical')
     plt.show()
 
+# Various plots to show the performance of players varying in each season
 
-myPlot(['KobeBryant', 'LeBronJames', 'DerrickRose', 'KevinDurant'])
+
+myPlot(MinutesPlayed)
+myPlot(FieldGoals/FieldGoalAttempts)
+myPlot(FieldGoalAttempts/Games)
+myPlot(MinutesPlayed/Games)
+myPlot(FieldGoals/MinutesPlayed)
+myPlot(FreeThrowAttempts/Games)
+myPlot((Points-FreeThrows)/FieldGoals)
+myPlot(FreeThrows/FreeThrowAttempts)
+
